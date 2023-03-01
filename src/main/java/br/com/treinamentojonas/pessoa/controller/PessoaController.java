@@ -26,14 +26,14 @@ public class PessoaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Pessoa salvar(@PathParam("pessoa") Pessoa pessoa) {
+    public Pessoa salvar(@RequestBody  Pessoa pessoa) {
         return pessoaService.save(pessoa);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Pessoa buscarPorId(@PathVariable("id") Long id){
-        return pessoaService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "cliente nao encontrado."));
+        return pessoaService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado."));
     }
 
     @GetMapping
@@ -42,12 +42,15 @@ public class PessoaController {
         return  pessoaService.findall();
     }
 
-    public void atualizarPessoa(Long id, Pessoa pessoa){
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void atualizarPessoa(@PathVariable("id") Long id, @RequestBody Pessoa pessoa){
         pessoaService.findById(id)
                 .map(c -> {
                     modelMapper.map(pessoa, c);
+                    pessoaService.save(c);
                     return Void.TYPE;
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "cliente nao encontrado."));
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado."));
 
     }
 }
