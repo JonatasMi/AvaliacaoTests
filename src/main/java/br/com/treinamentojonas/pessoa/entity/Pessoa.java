@@ -26,6 +26,10 @@ public class Pessoa implements Serializable {
     private Calendar dataNascimento;
 
     @OneToMany
+    @JoinColumn(name = "_email", foreignKey = @ForeignKey(name = "email"))
+    private Email email;
+
+    @OneToMany
     @JoinColumn(name = "_endereco_pessoa", foreignKey = @ForeignKey(name = "endereco_pessoa"))
     private List<Endereco> enderecosPessoas;
 }
