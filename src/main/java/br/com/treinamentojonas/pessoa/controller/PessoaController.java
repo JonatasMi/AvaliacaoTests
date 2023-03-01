@@ -42,12 +42,6 @@ public class PessoaController {
         return  pessoaService.findall();
     }
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Pessoa> buscarTodas(){
-        return  pessoaService.findall();
-    }
-
     public void atualizarPessoa(Long id, Pessoa pessoa){
         pessoaService.findById(id)
                 .map(c -> {
