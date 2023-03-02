@@ -6,19 +6,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Data
-public class Email implements Serializable {
+public class Loja implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "email")
-    private String email;
-
+    @OneToMany
+    @JoinColumn(name = "_setor", foreignKey = @ForeignKey(name = "setor"))
+    private Setor setor;
 }
